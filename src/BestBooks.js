@@ -11,11 +11,12 @@ class BestBooks extends React.Component {
   }
 
   componentDidMount(){
-    axios.get('./books')
+    axios.get(`${process.env.REACT_APP_SERVER}'/books'`)
       .then((response) => {
         this.setState({
           books: response.data
         })
+        console.log(response.data)
       })
       .catch ((error) => {
         console.log(error);
@@ -28,15 +29,16 @@ class BestBooks extends React.Component {
 
     if (this.state.books.length) {
       bookItems = this.state.books.map((book) =>
-        <Carousel.Item key={book._id}>
+       
+      <Carousel.Item key={book.title}>
           <img
             className="d-block w-100"
-            src={book.image}
-            alt={book.title}
+            src='public/images.png'
           />
+          <h3>{book.title}</h3>
           <Carousel.Caption>
-            <h3>{book.title}</h3>
-            <p>{book.author}</p>
+            <p>{book.description}</p>
+            <p>{book.status}</p>
           </Carousel.Caption>
         </Carousel.Item>
       );
@@ -47,11 +49,13 @@ class BestBooks extends React.Component {
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-
+    
         {this.state.books.length ? (
-          <p>Book Carousel coming soon</p>
+          <Carousel>
+            {bookItems}
+          </Carousel>
         ) : (
-          <h3>No Books Found :(</h3>
+          <h3>No Books Found :</h3>
         )}
       </>
     )
