@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import "./Profile.css";
+import "./About.css";
 
-class Profile extends Component {
+
+class About extends Component {
   render() {
     return (
       <div className="profile-page">
@@ -22,4 +23,4 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+export default About;
