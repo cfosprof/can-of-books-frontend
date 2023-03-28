@@ -8,18 +8,21 @@ Books are life-changing. They have the power to enlighten, educate, entertain, h
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+
+ This app appears to be a simple bookshelf app that displays a collection of books in a carousel.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+Enter site
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+
+The entry point of the app is the index.js file, which renders the App component. The App component is responsible for rendering the different components based on the current URL using React Router's `<Routes>` and `<Route>` components.
+
+![day1Diagram](/src/img/day1WRRC.png)
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+03-27-2023 4:59pm
 
 ## Estimates
 <!-- See below -->
