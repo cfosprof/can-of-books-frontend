@@ -1,16 +1,25 @@
 import React from 'react';
-import { Navbar, NavItem } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { Navbar, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
   render() {
     return (
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand>My Favorite Books</Navbar.Brand>
-        <NavItem><Link to="/" className="nav-link">Home</Link></NavItem>
-        {/* PLACEHOLDER: render a navigation link to the about page */}
+      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
+        <Navbar.Brand><Link to="/" className="navbar-brand">My Favorite Books</Link></Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="ml-auto">
+            <Nav.Item>
+              <Link to="/" className="nav-link">Home</Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link to="/About" className="nav-link">About</Link>
+            </Nav.Item>
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
-    )
+    );
   }
 }
 

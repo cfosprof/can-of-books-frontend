@@ -5,9 +5,18 @@ class Footer extends React.Component {
   render() {
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand>Code Fellows</Navbar.Brand>
+        <Navbar.Brand>
+          Cam and Chris code&nbsp;
+          <a href="https://github.com/CodrCam" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-github"></i>
+          </a>
+          &nbsp;
+          <a href="https://github.com/cfosprof" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-github"></i>
+          </a>
+        </Navbar.Brand>
       </Navbar>
-    )
+    );
   }
 }
 
