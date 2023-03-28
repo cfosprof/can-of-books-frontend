@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import Carousel from 'react-bootstrap/Carousel';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './BestBooks.css'; // Import the BestBooks.css file
+import React, { Component } from "react";
+import axios from "axios";
+import Carousel from "react-bootstrap/Carousel";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./BestBooks.css"; // Import the BestBooks.css file
 
 class BestBooks extends Component {
   constructor(props) {
@@ -37,11 +37,18 @@ class BestBooks extends Component {
       <Carousel className="best-books-carousel">
         {books.map((book) => (
           <Carousel.Item key={book._id} className="carousel-item-custom">
-            <img src={book.image} alt={book.title} className="carousel-image" />
-            <Carousel.Caption className="carousel-caption-custom">
-              <h3>{book.title}</h3>
-              <p>{book.author}</p>
-            </Carousel.Caption>
+            <div className="container">
+              <div className="row">
+                <div className="col-md-5">
+                  <img src={book.coverImageUrl} alt={book.title} className="carousel-image img-fluid" />
+                </div>
+                <div className="col-md-7">
+                  <h3>{book.title}</h3>
+                  <p>Author: {book.author}</p>
+                  <p>Description: {book.description}</p>
+                </div>
+              </div>
+            </div>
           </Carousel.Item>
         ))}
       </Carousel>
