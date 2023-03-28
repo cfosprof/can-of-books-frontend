@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Carousel from "react-bootstrap/Carousel";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./BestBooks.css"; // Import the BestBooks.css file
+import "./BestBooks.css";
 
 class BestBooks extends Component {
   constructor(props) {
