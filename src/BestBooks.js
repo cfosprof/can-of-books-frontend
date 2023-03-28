@@ -1,64 +1,51 @@
+import React, { Component } from 'react';
 import axios from 'axios';
-import React from 'react';
-import { Carousel } from 'react-bootstrap';
+import Carousel from 'react-bootstrap/Carousel';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './BestBooks.css'; // Import the BestBooks.css file
 
-class BestBooks extends React.Component {
+class BestBooks extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
-    }
+      books: [],
+    };
   }
 
-  componentDidMount(){
-    axios.get(`${process.env.REACT_APP_SERVER}'/books'`)
-      .then((response) => {
-        this.setState({
-          books: response.data
-        })
-        console.log(response.data)
-      })
-      .catch ((error) => {
-        console.log(error);
-      })
+  componentDidMount() {
+    this.fetchBooks();
   }
+
+  fetchBooks = async () => {
+    try {
+      const url = `${process.env.REACT_APP_SERVER}/books`;
+      const response = await axios.get(url);
+      this.setState({ books: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   render() {
+    const { books } = this.state;
 
-    let bookItems;
-
-    if (this.state.books.length) {
-      bookItems = this.state.books.map((book) =>
-       
-      <Carousel.Item key={book.title}>
-          <img
-            className="d-block w-100"
-            src='public/images.png'
-          />
-          <h3>{book.title}</h3>
-          <Carousel.Caption>
-            <p>{book.description}</p>
-            <p>{book.status}</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      );
-    } else {
-      bookItems = <h3>No Books Found :(</h3>;
+    if (books.length === 0) {
+      return <p>No books in the collection.</p>;
     }
 
     return (
-      <>
-        <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-    
-        {this.state.books.length ? (
-          <Carousel>
-            {bookItems}
-          </Carousel>
-        ) : (
-          <h3>No Books Found :</h3>
-        )}
-      </>
-    )
+      <Carousel className="best-books-carousel">
+        {books.map((book) => (
+          <Carousel.Item key={book._id} className="carousel-item-custom">
+            <img src={book.image} alt={book.title} className="carousel-image" />
+            <Carousel.Caption className="carousel-caption-custom">
+              <h3>{book.title}</h3>
+              <p>{book.author}</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    );
   }
 }
 

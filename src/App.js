@@ -1,37 +1,27 @@
 import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import BestBooks from './BestBooks';
-import About from './About';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from "react-router-dom";
-
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import BestBooks from './BestBooks'; 
 
 class App extends React.Component {
   render() {
     return (
-      <>
-        <Router>
-          <Header />
-          <Routes>
-            <Route 
-              exact path="/"
-              element={<BestBooks />}
-            >
-            </Route>
-            <Route
-            exact path="/about"
-            element={<About />}
-            />
-          </Routes>
-          <Footer />
-        </Router>
-      </>
-    )
+      <Router>
+        <header>
+          <nav>
+            <Link to="/">Home</Link>
+            <Link to="/about">About</Link>
+          </nav>
+        </header>
+        <Routes>
+          <Route path="/" element={<BestBooks />} />
+          <Route path="/about" element={
+            <div>
+              <h2>About the Developer</h2>
+            </div>
+          } />
+        </Routes>
+      </Router>
+    );
   }
 }
 
