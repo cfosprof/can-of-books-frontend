@@ -4,12 +4,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./BestBooks.css";
 import CarouselComponent from "./CarouselComponent";
 import AddBookModal from "./AddBookModal";
-import { fetchBooks, createBook, deleteBook } from "./BookUtils";
+import EditBookModal from "./EditBookModal";
+import { fetchBooks, createBook, deleteBook, updateBook } from "./BookUtils";
 
 function BestBooks() {
   // Declare state variables
   const [books, setBooks] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [editModalShow, setEditModalShow] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
   const [bookFormState, setBookFormState] = useState({
     title: "",
     author: "",
@@ -17,7 +20,7 @@ function BestBooks() {
     coverImageUrl: "",
   });
 
-  // Fetch books when the component mounts
+  //Fetch books from the API when the component mounts
   useEffect(() => {
     async function fetchAndSetBooks() {
       const books = await fetchBooks();
@@ -26,23 +29,34 @@ function BestBooks() {
     fetchAndSetBooks();
   }, []);
 
-  // Show the AddBookModal when the "Add Book" button is clicked
+  //Show the modal when the add book button is clicked
   const handleAddBookClick = () => {
     setShowModal(true);
   };
 
-  // Close the AddBookModal
+  //Close the modal when the close button is clicked
   const handleCloseModal = () => {
     setShowModal(false);
+    resetFormState();
   };
 
-  // Update the book form state when input changes
+  //Handle input changes
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setBookFormState((prevState) => ({ ...prevState, [name]: value }));
   };
+  
+  //Reset the form state to empty strings when the modal is closed
+  const resetFormState = () => {
+    setBookFormState({
+      title: "",
+      author: "",
+      description: "",
+      coverImageUrl: "",
+    });
+  };
 
-  // Submit the book form to create a new book
+  //Handle form submission when a new book is added
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { title, author, description, coverImageUrl } = bookFormState;
@@ -53,20 +67,15 @@ function BestBooks() {
       coverImageUrl,
     });
 
-    // Add the new book to the list and close the modal if successful
+    //If the book was successfully created, add it to the books array and close the modal
     if (newBook) {
       setBooks((prevState) => [...prevState, newBook]);
       setShowModal(false);
-      setBookFormState({
-        title: "",
-        author: "",
-        description: "",
-        coverImageUrl: "",
-      });
+      resetFormState();
     }
   };
 
-  // Delete a book and update the state
+  //Handle book deletion
   const handleDeleteBook = async (bookId) => {
     const success = await deleteBook(bookId);
     if (success) {
@@ -74,15 +83,47 @@ function BestBooks() {
     }
   };
 
-  // If there are no books, show a message
+  //Handle edit book click
+  const handleEditBookClick = (book) => {
+    setSelectedBook(book);
+    setBookFormState({
+      title: book.title,
+      author: book.author,
+      description: book.description,
+      coverImageUrl: book.coverImageUrl,
+    });
+    setEditModalShow(true);
+  };
+
+  //Handle edit modal close
+  const handleEditModalClose = () => {
+    setEditModalShow(false);
+    setSelectedBook(null);
+    resetFormState();
+  };
+
+  //Handle edit form submission
+  const handleEditSubmit = async (event) => {
+    event.preventDefault();
+    if (!selectedBook) return;
+
+    //Create a new book object with the updated Book value in the books array and close the modal
+    const updatedBook = await updateBook(selectedBook._id, bookFormState);
+    if (updatedBook) {
+      setBooks((prevState) => prevState.map((book) => (book._id === updatedBook._id ? updatedBook : book)));
+      setEditModalShow(false);
+      setSelectedBook(null);
+      resetFormState();
+    }
+  };
+
   if (books.length === 0) {
     return <p>No books in the collection.</p>;
   }
 
-  // Render the CarouselComponent, "Add Book" button, and AddBookModal
   return (
     <>
-      <CarouselComponent books={books} handleDeleteBook={handleDeleteBook} />
+      <CarouselComponent books={books} handleDeleteBook={handleDeleteBook} handleEditBookClick={handleEditBookClick} />
       <Button variant="primary" onClick={handleAddBookClick}>
         Add Book
       </Button>
@@ -92,6 +133,14 @@ function BestBooks() {
         handleInputChange={handleInputChange}
         handleSubmit={handleSubmit}
         bookFormState={bookFormState}
+      />
+      <EditBookModal
+        showModal={editModalShow}
+        handleCloseModal={handleEditModalClose}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleEditSubmit}
+        bookFormState={bookFormState}
+        book={selectedBook}
       />
     </>
   );

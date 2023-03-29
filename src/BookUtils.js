@@ -37,3 +37,14 @@ export const deleteBook = async (bookId) => {
   }
 };
 
+
+export const updateBook = async (bookId, bookData) => {
+  try {
+    const response = await axios.put(`${process.env.REACT_APP_SERVER}/books/${bookId}`, bookData);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating book:", error);
+    return null;
+  }
+};
+

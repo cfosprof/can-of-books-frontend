@@ -3,7 +3,7 @@ import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
 
 // CarouselComponent is a functional component that takes books and handleDeleteBook as props
-const CarouselComponent = ({ books, handleDeleteBook }) => {
+const CarouselComponent = ({ books, handleDeleteBook, handleEditBookClick }) => {
   return (
     // Create a Carousel with custom class name
     <Carousel className="best-books-carousel">
@@ -25,6 +25,7 @@ const CarouselComponent = ({ books, handleDeleteBook }) => {
                 <Button variant="danger" onClick={() => handleDeleteBook(book._id)}>
                   Delete
                 </Button>
+                <Button variant="warning" onClick={() => handleEditBookClick(book)}>Edit</Button>
               </div>
             </div>
           </div>
