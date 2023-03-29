@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./BestBooks.css";
 
 class BestBooks extends Component {
   constructor(props) {
