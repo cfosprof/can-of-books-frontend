@@ -4,7 +4,6 @@ import BookList from "./BookList";
 import AddBookModal from "./AddBookModal";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./BestBooks.css";
 
 function BestBooks() {
   const [books, setBooks] = useState([]);
