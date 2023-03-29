@@ -2,8 +2,11 @@ import React from "react";
 import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
 
-function BookItem({ book, onDeleteBook }) {
+const CarouselComponent = ({ books, handleDeleteBook }) => {
   return (
+
+  <Carousel className="best-books-carousel">
+  {books.map((book) => (
     <Carousel.Item key={book._id} className="carousel-item-custom">
       <div className="container">
         <div className="row">
@@ -14,14 +17,16 @@ function BookItem({ book, onDeleteBook }) {
             <h3>{book.title}</h3>
             <p>Author: {book.author}</p>
             <p>Description: {book.description}</p>
-            <Button variant="danger" onClick={() => onDeleteBook(book._id)}>
+            <Button variant="danger" onClick={() => this.handleDeleteBook(book._id)}>
               Delete
             </Button>
           </div>
         </div>
       </div>
     </Carousel.Item>
+  ))}
+  </Carousel>
   );
-}
+};
 
-export default BookItem;
+export default CarouselComponent;
