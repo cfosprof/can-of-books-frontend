@@ -3,16 +3,15 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-// Define the AddBookModal functional component
-const AddBookModal = ({ showModal, handleCloseModal, handleInputChange, handleSubmit, bookFormState }) => {
-  // Destructure the bookFormState object to get the form field values
+const EditBookModal = ({ showModal, handleCloseModal, handleInputChange, handleSubmit, bookFormState, book }) => {
+  if (!book) return null;
+
   const { title, author, description, coverImageUrl } = bookFormState;
 
-  // Render the modal component with the form to add a new book
   return (
     <Modal show={showModal} onHide={handleCloseModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Add a new book</Modal.Title>
+        <Modal.Title>Edit book details</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
@@ -54,12 +53,11 @@ const AddBookModal = ({ showModal, handleCloseModal, handleInputChange, handleSu
               onChange={handleInputChange}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">Submit</Button>
+          <Button variant="primary" type="submit">Save Changes</Button>
         </Form>
       </Modal.Body>
     </Modal>
   );
 };
 
-// Export the AddBookModal component for use in other modules
-export default AddBookModal;
+export default EditBookModal;
