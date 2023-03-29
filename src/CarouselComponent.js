@@ -17,7 +17,7 @@ const CarouselComponent = ({ books, handleDeleteBook }) => {
             <h3>{book.title}</h3>
             <p>Author: {book.author}</p>
             <p>Description: {book.description}</p>
-            <Button variant="danger" onClick={() => this.handleDeleteBook(book._id)}>
+            <Button variant="danger" onClick={() => handleDeleteBook(book._id)}>
               Delete
             </Button>
           </div>

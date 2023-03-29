@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./BestBooks.css";
@@ -6,44 +6,40 @@ import CarouselComponent from "./CarouselComponent";
 import AddBookModal from "./AddBookModal";
 import { fetchBooks, createBook, deleteBook } from "./BookUtils";
 
-class BestBooks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      books: [],
-      showModal: false,
-      title: "",
-      author: "",
-      description: "",
-      coverImageUrl: "",
-    };
-  }
+function BestBooks() {
+  const [books, setBooks] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [bookFormState, setBookFormState] = useState({
+    title: "",
+    author: "",
+    description: "",
+    coverImageUrl: "",
+  });
 
-  componentDidMount() {
-    this.fetchAndSetBooks();
-  }
+  useEffect(() => {
+    async function fetchAndSetBooks() {
+      const books = await fetchBooks();
+      setBooks(books);
+    }
+    fetchAndSetBooks();
+  }, []);
 
-  fetchAndSetBooks = async () => {
-    const books = await fetchBooks();
-    this.setState({ books });
+  const handleAddBookClick = () => {
+    setShowModal(true);
   };
 
-  handleAddBookClick = () => {
-    this.setState({ showModal: true });
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
-  handleCloseModal = () => {
-    this.setState({ showModal: false });
-  };
-
-  handleInputChange = (event) => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+    setBookFormState((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const { title, author, description, coverImageUrl } = this.state;
+    const { title, author, description, coverImageUrl } = bookFormState;
     const newBook = await createBook({
       title,
       author,
@@ -52,54 +48,43 @@ class BestBooks extends Component {
     });
 
     if (newBook) {
-      this.setState((prevState) => ({
-        books: [...prevState.books, newBook],
-        showModal: false,
+      setBooks((prevState) => [...prevState, newBook]);
+      setShowModal(false);
+      setBookFormState({
         title: "",
         author: "",
         description: "",
         coverImageUrl: "",
-      }));
+      });
     }
   };
 
-  handleDeleteBook = async (bookId) => {
+  const handleDeleteBook = async (bookId) => {
     const success = await deleteBook(bookId);
     if (success) {
-      this.setState((prevState) => ({
-        books: prevState.books.filter((book) => book._id !== bookId),
-      }));
+      setBooks((prevState) => prevState.filter((book) => book._id !== bookId));
     }
   };
 
-  render() {
-    const { books, showModal, title, author, description, coverImageUrl } = this.state;
-
-    if (books.length === 0) {
-      return <p>No books in the collection.</p>;
-    }
-
-    return (
-      <>
-        <CarouselComponent books={books} handleDeleteBook={this.handleDeleteBook} />
-        <Button variant="primary" onClick={this.handleAddBookClick}>
-          Add Book
-        </Button>
-        <AddBookModal
-          showModal={showModal}
-          handleCloseModal={this.handleCloseModal}
-          handleInputChange={this.handleInputChange}
-          handleSubmit={this.handleSubmit}
-          bookFormState={{
-            title,
-            author,
-            description,
-            coverImageUrl,
-          }}
-        />
-      </>
-    );
+  if (books.length === 0) {
+    return <p>No books in the collection.</p>;
   }
+
+  return (
+    <>
+      <CarouselComponent books={books} handleDeleteBook={handleDeleteBook} />
+      <Button variant="primary" onClick={handleAddBookClick}>
+        Add Book
+      </Button>
+      <AddBookModal
+        showModal={showModal}
+        handleCloseModal={handleCloseModal}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleSubmit}
+        bookFormState={bookFormState}
+      />
+    </>
+  );
 }
 
 export default BestBooks;
