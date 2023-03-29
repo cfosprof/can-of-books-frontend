@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Function to fetch books from the server
 export const fetchBooks = async () => {
   try {
     const url = `${process.env.REACT_APP_SERVER}/books`;
@@ -11,6 +12,7 @@ export const fetchBooks = async () => {
   }
 };
 
+// Function to create a new book on the server
 export const createBook = async (bookData) => {
   try {
     const response = await axios.post(`${process.env.REACT_APP_SERVER}/books`, {
@@ -24,6 +26,7 @@ export const createBook = async (bookData) => {
   }
 };
 
+// Function to delete a book from the server
 export const deleteBook = async (bookId) => {
   try {
     await axios.delete(`${process.env.REACT_APP_SERVER}/books/${bookId}`);
@@ -33,3 +36,4 @@ export const deleteBook = async (bookId) => {
     return false;
   }
 };
+
