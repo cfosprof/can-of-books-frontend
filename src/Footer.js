@@ -8,11 +8,11 @@ class Footer extends React.Component {
         <Navbar.Brand>
           Cam and Chris code&nbsp;
           <a href="https://github.com/CodrCam" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-github"></i>
+          <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/59059d9d1a2c092696dc66e00931cc1181a4ce1f/icons/Github-Dark.svg" alt="GitHub profile of CodrCam"></img>
           </a>
           &nbsp;
           <a href="https://github.com/cfosprof" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-github"></i>
+          <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/59059d9d1a2c092696dc66e00931cc1181a4ce1f/icons/Github-Dark.svg" alt="GitHub profile of cfosprof"></img>
           </a>
         </Navbar.Brand>
       </Navbar>
