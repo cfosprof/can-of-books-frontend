@@ -22,6 +22,7 @@ const EditBookModal = ({ showModal, handleCloseModal, handleInputChange, handleS
               name="title"
               value={title}
               onChange={handleInputChange}
+              placeholder="Enter book title"
               required
             />
           </Form.Group>
@@ -32,6 +33,7 @@ const EditBookModal = ({ showModal, handleCloseModal, handleInputChange, handleS
               name="author"
               value={author}
               onChange={handleInputChange}
+              placeholder="Enter author's name"
             />
           </Form.Group>
           <Form.Group controlId="description">
@@ -42,6 +44,7 @@ const EditBookModal = ({ showModal, handleCloseModal, handleInputChange, handleS
               name="description"
               value={description}
               onChange={handleInputChange}
+              placeholder="Enter a brief description of the book"
             />
           </Form.Group>
           <Form.Group controlId="coverImageUrl">
@@ -51,6 +54,7 @@ const EditBookModal = ({ showModal, handleCloseModal, handleInputChange, handleS
               name="coverImageUrl"
               value={coverImageUrl}
               onChange={handleInputChange}
+              placeholder="Enter the URL of the book's cover image"
             />
           </Form.Group>
           <Button variant="primary" type="submit">Save Changes</Button>

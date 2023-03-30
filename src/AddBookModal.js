@@ -9,6 +9,7 @@ const AddBookModal = ({ showModal, handleCloseModal, handleInputChange, handleSu
   const { title, author, description, coverImageUrl } = bookFormState;
 
   // Render the modal component with the form to add a new book
+  
   return (
     <Modal show={showModal} onHide={handleCloseModal}>
       <Modal.Header closeButton>
@@ -23,6 +24,7 @@ const AddBookModal = ({ showModal, handleCloseModal, handleInputChange, handleSu
               name="title"
               value={title}
               onChange={handleInputChange}
+              placeholder="Enter book title"
               required
             />
           </Form.Group>
@@ -33,6 +35,7 @@ const AddBookModal = ({ showModal, handleCloseModal, handleInputChange, handleSu
               name="author"
               value={author}
               onChange={handleInputChange}
+              placeholder="Enter author's name"
             />
           </Form.Group>
           <Form.Group controlId="description">
@@ -43,6 +46,7 @@ const AddBookModal = ({ showModal, handleCloseModal, handleInputChange, handleSu
               name="description"
               value={description}
               onChange={handleInputChange}
+              placeholder="Enter a brief description of the book (optional)"
             />
           </Form.Group>
           <Form.Group controlId="coverImageUrl">
@@ -52,6 +56,7 @@ const AddBookModal = ({ showModal, handleCloseModal, handleInputChange, handleSu
               name="coverImageUrl"
               value={coverImageUrl}
               onChange={handleInputChange}
+              placeholder="Enter the URL of the book's cover image (optional)"
             />
           </Form.Group>
           <Button variant="primary" type="submit">Submit</Button>
