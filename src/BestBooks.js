@@ -77,11 +77,15 @@ function BestBooks() {
 
   //Handle book deletion
   const handleDeleteBook = async (bookId) => {
-    const success = await deleteBook(bookId);
-    if (success) {
-      setBooks((prevState) => prevState.filter((book) => book._id !== bookId));
+    const confirmation = window.confirm("Are you sure you want to delete this book?");
+    if (confirmation) {
+      const success = await deleteBook(bookId);
+      if (success) {
+        setBooks((prevState) => prevState.filter((book) => book._id !== bookId));
+      }
     }
   };
+  
 
   //Handle edit book click
   const handleEditBookClick = (book) => {
